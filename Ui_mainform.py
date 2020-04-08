@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Lex Chen\py_proj\text_watermarks\mainform.ui'
+# Form implementation generated from reading ui file 'c:\Users\Lex\py_proj\text_watermark\mainform.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.2
 #
@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(915, 762)
+        MainWindow.resize(816, 762)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -93,28 +93,18 @@ class Ui_MainWindow(object):
         self.defaultCurrentDateCb = QtWidgets.QCheckBox(self.frame_4)
         self.defaultCurrentDateCb.setObjectName("defaultCurrentDateCb")
         self.horizontalLayout_4.addWidget(self.defaultCurrentDateCb)
+        self.realtimePreviewCb = QtWidgets.QCheckBox(self.frame_4)
+        self.realtimePreviewCb.setObjectName("realtimePreviewCb")
+        self.horizontalLayout_4.addWidget(self.realtimePreviewCb)
+        self.previewBtn = QtWidgets.QPushButton(self.frame_4)
+        self.previewBtn.setObjectName("previewBtn")
+        self.horizontalLayout_4.addWidget(self.previewBtn)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem1)
-        self.verticalLayout.addWidget(self.frame_4)
-        self.frame_5 = QtWidgets.QFrame(self.frame)
-        self.frame_5.setMaximumSize(QtCore.QSize(16777215, 50))
-        self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_5.setObjectName("frame_5")
-        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.frame_5)
-        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.previewBtn = QtWidgets.QPushButton(self.frame_5)
-        self.previewBtn.setObjectName("previewBtn")
-        self.horizontalLayout_5.addWidget(self.previewBtn)
-        self.realtimePreviewCb = QtWidgets.QCheckBox(self.frame_5)
-        self.realtimePreviewCb.setObjectName("realtimePreviewCb")
-        self.horizontalLayout_5.addWidget(self.realtimePreviewCb)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem2)
-        self.addWatermarksBtn = QtWidgets.QPushButton(self.frame_5)
+        self.addWatermarksBtn = QtWidgets.QPushButton(self.frame_4)
         self.addWatermarksBtn.setObjectName("addWatermarksBtn")
-        self.horizontalLayout_5.addWidget(self.addWatermarksBtn)
-        self.verticalLayout.addWidget(self.frame_5)
+        self.horizontalLayout_4.addWidget(self.addWatermarksBtn)
+        self.verticalLayout.addWidget(self.frame_4)
         self.frame_6 = QtWidgets.QFrame(self.frame)
         self.frame_6.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_6.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -129,7 +119,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 915, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 816, 23))
         self.menubar.setObjectName("menubar")
         self.menuAbout = QtWidgets.QMenu(self.menubar)
         self.menuAbout.setObjectName("menuAbout")
@@ -151,7 +141,7 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "透明度:"))
         self.label_3.setText(_translate("MainWindow", "日期:"))
         self.defaultCurrentDateCb.setText(_translate("MainWindow", "默认当前日期"))
-        self.previewBtn.setText(_translate("MainWindow", "预览"))
         self.realtimePreviewCb.setText(_translate("MainWindow", "实时预览"))
+        self.previewBtn.setText(_translate("MainWindow", "预览"))
         self.addWatermarksBtn.setText(_translate("MainWindow", "添加水印"))
         self.menuAbout.setTitle(_translate("MainWindow", "About"))
