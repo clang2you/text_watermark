@@ -44,18 +44,18 @@ class MyMainForm(QMainWindow, Ui_mainform.Ui_MainWindow):
             self.AddTextWatermarkToImage(self.current_image_path)
 
     
-    def m_resize(self,w_box, h_box, pil_image):  # 参数是：要适应的窗口宽、高、Image.open后的图片
-        w, h = pil_image.width(), pil_image.height() # 获取图像的原始大小
-        f1 = 1.0*w_box/w
-        f2 = 1.0 * h_box / h
-        factor = min([f1, f2])  
-        width = int(w * factor)
-        height = int(h * factor)
+    # def m_resize(self,w_box, h_box, pil_image):  # 参数是：要适应的窗口宽、高、Image.open后的图片
+        # w, h = pil_image.width(), pil_image.height() # 获取图像的原始大小
+        # f1 = 1.0*w_box/w
+        # f2 = 1.0 * h_box / h
+        # factor = min([f1, f2])  
+        # width = int(w * factor)
+        # height = int(h * factor)
         #return pil_image.resize(width, height)
-        return pil_image.smoothScaled(width, height)
+        # return pil_image.smoothScaled(width, height)
     
     def AddTextWatermarkToImage(self, image_path):
-        if self.current_image_path != None:
+        if image_path != None:
             src = Image.open(image_path).convert('RGBA')
             text_overlay = Image.new("RGBA", src.size, (255, 255, 255, 0))
             image_draw = ImageDraw.Draw(text_overlay)
@@ -99,6 +99,12 @@ class MyMainForm(QMainWindow, Ui_mainform.Ui_MainWindow):
             self.graphicsView.setScene(self.scene)
             self.graphicsView.fitInView(self.item,QtCore.Qt.AspectRatioMode.KeepAspectRatio)        
 
+class Thread(QtCore.QThread):
+    def __init__(self):
+        super(Thread, self).__init__()
+    
+    def run(self):
+        pass
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
