@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>816</width>
-    <height>762</height>
+    <height>766</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>文字水印批量添加</string>
+   <string>文字水印批量添加 Coding By LN3 IT</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -222,6 +222,27 @@
            </spacer>
           </item>
           <item>
+           <widget class="QRadioButton" name="radioBlack">
+            <property name="text">
+             <string>黑色</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioGrey">
+            <property name="text">
+             <string>灰色</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioWhite">
+            <property name="text">
+             <string>白色</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="addWatermarksBtn">
             <property name="text">
              <string>添加水印</string>
@@ -229,6 +250,13 @@
            </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>  注意:如图片像素较高,实时预览可能显示不完整,请手动点击预览按钮察看.</string>
+         </property>
         </widget>
        </item>
        <item>
@@ -253,7 +281,14 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QGraphicsView" name="graphicsView"/>
+           <widget class="QGraphicsView" name="graphicsView">
+            <property name="minimumSize">
+             <size>
+              <width>794</width>
+              <height>585</height>
+             </size>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -262,22 +297,6 @@
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>816</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuAbout">
-    <property name="title">
-     <string>About</string>
-    </property>
-   </widget>
-   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

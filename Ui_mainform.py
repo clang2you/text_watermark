@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Lex\py_proj\text_watermark\mainform.ui'
+# Form implementation generated from reading ui file 'c:\Users\Lex Chen\py_proj\text_watermarks\mainform.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.2
 #
@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(816, 762)
+        MainWindow.resize(816, 766)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -101,10 +101,22 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.previewBtn)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem1)
+        self.radioBlack = QtWidgets.QRadioButton(self.frame_4)
+        self.radioBlack.setObjectName("radioBlack")
+        self.horizontalLayout_4.addWidget(self.radioBlack)
+        self.radioGrey = QtWidgets.QRadioButton(self.frame_4)
+        self.radioGrey.setObjectName("radioGrey")
+        self.horizontalLayout_4.addWidget(self.radioGrey)
+        self.radioWhite = QtWidgets.QRadioButton(self.frame_4)
+        self.radioWhite.setObjectName("radioWhite")
+        self.horizontalLayout_4.addWidget(self.radioWhite)
         self.addWatermarksBtn = QtWidgets.QPushButton(self.frame_4)
         self.addWatermarksBtn.setObjectName("addWatermarksBtn")
         self.horizontalLayout_4.addWidget(self.addWatermarksBtn)
         self.verticalLayout.addWidget(self.frame_4)
+        self.label_5 = QtWidgets.QLabel(self.frame)
+        self.label_5.setObjectName("label_5")
+        self.verticalLayout.addWidget(self.label_5)
         self.frame_6 = QtWidgets.QFrame(self.frame)
         self.frame_6.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_6.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -113,28 +125,22 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.graphicsView = QtWidgets.QGraphicsView(self.frame_6)
+        self.graphicsView.setMinimumSize(QtCore.QSize(794, 585))
         self.graphicsView.setObjectName("graphicsView")
         self.horizontalLayout_6.addWidget(self.graphicsView)
         self.verticalLayout.addWidget(self.frame_6)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 816, 23))
-        self.menubar.setObjectName("menubar")
-        self.menuAbout = QtWidgets.QMenu(self.menubar)
-        self.menuAbout.setObjectName("menuAbout")
-        MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.menubar.addAction(self.menuAbout.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "文字水印批量添加"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "文字水印批量添加 Coding By LN3 IT"))
         self.choiceImageFilesBtn.setText(_translate("MainWindow", "选择文件"))
         self.label_2.setText(_translate("MainWindow", "文字内容:"))
         self.label_4.setText(_translate("MainWindow", "字体大小:"))
@@ -143,5 +149,8 @@ class Ui_MainWindow(object):
         self.defaultCurrentDateCb.setText(_translate("MainWindow", "默认当前日期"))
         self.realtimePreviewCb.setText(_translate("MainWindow", "实时预览"))
         self.previewBtn.setText(_translate("MainWindow", "预览"))
+        self.radioBlack.setText(_translate("MainWindow", "黑色"))
+        self.radioGrey.setText(_translate("MainWindow", "灰色"))
+        self.radioWhite.setText(_translate("MainWindow", "白色"))
         self.addWatermarksBtn.setText(_translate("MainWindow", "添加水印"))
-        self.menuAbout.setTitle(_translate("MainWindow", "About"))
+        self.label_5.setText(_translate("MainWindow", "  注意:如图片像素较高,实时预览可能显示不完整,请手动点击预览按钮察看."))
