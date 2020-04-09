@@ -11,6 +11,9 @@ from configparser import ConfigParser
 import datetime
 import os
 import sys
+import colorDetection
+import cv2
+import numpy
 
 cfg = ConfigParser()
 cfg.read('config.ini')
@@ -236,6 +239,11 @@ class Worker(QtCore.QThread):
                 time_text_xy = (time_text_x, text_xy[1] - time_y_offset)
                 image_draw.text(time_text_xy, time_text, font=fnt, fill=(color[0],color[1],color[2],self.form.transparentRate))
                 image_with_text = Image.alpha_composite(src,text_overlay)
+
+                #测试使用 open cv 自动识别图片背景颜色
+                crop_img = src.crop((text_xy[0], time_text_xy[1], src.size[0], src.size[1])).convert('RGB')
+                cv_img = cv2.cvtColor(numpy.asarray(crop_img), cv2.COLOR_RGB2BGR)
+                print(colorDetection.get_color(cv_img))
             else:
                 time_text_size = image_draw.textsize(time_text, font=fnt)
                 time_text_x = src.size[0] - (time_text_size[0] + size_x_offset)
