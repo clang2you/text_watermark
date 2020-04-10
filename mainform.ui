@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>816</width>
-    <height>766</height>
+    <width>918</width>
+    <height>813</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -306,6 +306,13 @@
            </spacer>
           </item>
           <item>
+           <widget class="QCheckBox" name="autoColorCb">
+            <property name="text">
+             <string>自动水印颜色</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QLabel" name="colorLabel">
             <property name="text">
              <string/>
@@ -360,7 +367,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>816</width>
+     <width>918</width>
      <height>23</height>
     </rect>
    </property>

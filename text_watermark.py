@@ -26,7 +26,7 @@ class MyMainForm(QMainWindow, Ui_mainform.Ui_MainWindow):
     def __init__(self, parent=None):
         global cfg
         super(MyMainForm, self).__init__(parent)
-        self.colorDict = {"grey": (211, 211, 211), "black": (
+        self.colorDict = {"gray": (211, 211, 211), "black": (
             0, 0, 0), "white": (255, 255, 255)}
         self.setupUi(self)
         self.current_image_list = None
@@ -53,6 +53,9 @@ class MyMainForm(QMainWindow, Ui_mainform.Ui_MainWindow):
         self.transparentRate = self.spinBox.value()
         self.spinBox.valueChanged.connect(self.ChangeTransparentRate)
         self.defaultCurrentDateCb.clicked.connect(self.SetDateEditEnable)
+        self.autoColorCb.setChecked(cfg.getboolean("CONFIG", "auto_color"))
+        self.isAutoColor = self.autoColorCb.isChecked()
+        self.DisableEnableColorChoiceRadio()
         self.textWatermarkContentsLineEdit.setText(cfg.get("CONFIG", "Text"))
         self.spinBox.setValue(int(cfg.getint("CONFIG", "TransparentRate")))
         self.defaultCurrentDateCb.setChecked(
@@ -73,13 +76,34 @@ class MyMainForm(QMainWindow, Ui_mainform.Ui_MainWindow):
             self.watermark_color = self.colorDict["white"]
             self.radioWhite.setChecked(True)
         else:
-            self.watermark_color = self.colorDict["grey"]
+            self.watermark_color = self.colorDict["gray"]
             self.radioGrey.setChecked(True)
         if self.current_image_list == None:
             # self.realtimePreviewCb.setEnabled(False)
             self.previewBtn.setEnabled(False)
             self.addWatermarksBtn.setEnabled(False)
         self.actiondd.triggered.connect(self.ColorSettingWindow)
+        self.autoColorCb.clicked.connect(self.CheckAutoColor)
+    
+    def DisableEnableColorChoiceRadio(self):
+        if self.autoColorCb.isChecked():
+            self.radioBlack.setEnabled(False)
+            self.radioGrey.setEnabled(False)
+            self.radioWhite.setEnabled(False)
+        else:
+            self.radioBlack.setEnabled(True)
+            self.radioGrey.setEnabled(True)
+            self.radioWhite.setEnabled(True)
+            self.colorLabel.setText("")
+    
+    def CheckAutoColor(self):
+        global cfg
+        cfg.set("CONFIG", "auto_color", str(self.autoColorCb.isChecked()))
+        cfg.write(open("config.ini", "w"))
+        self.isAutoColor = self.autoColorCb.isChecked()
+        self.DisableEnableColorChoiceRadio()
+        self.thread.form = self
+        self.StartPreview()
 
     def ChangeWaterMarkColor(self):
         global cfg
@@ -90,8 +114,8 @@ class MyMainForm(QMainWindow, Ui_mainform.Ui_MainWindow):
             self.watermark_color = self.colorDict["white"]
             cfg.set("CONFIG", "Color", "white")
         else:
-            self.watermark_color = self.colorDict["grey"]
-            cfg.set("CONFIG", "Color", "grey")
+            self.watermark_color = self.colorDict["gray"]
+            cfg.set("CONFIG", "Color", "gray")
         cfg.write(open("config.ini", "w"))
         self.thread.form = self
         self.StartPreview()
@@ -164,6 +188,7 @@ class MyMainForm(QMainWindow, Ui_mainform.Ui_MainWindow):
             self.radioBlack.setEnabled(True)
             self.radioWhite.setEnabled(True)
             self.addWatermarksBtn.setEnabled(True)
+            self.DisableEnableColorChoiceRadio()
 
     def DisplayFontSizeSlideBarValue(self):
         global cfg
@@ -237,6 +262,7 @@ class Worker(QtCore.QThread):
                         self.image_list.index(image_file) + 1, image_file)
 
     def AddTextWatermarkToImage(self, count, image_path):
+        global cfg
         if image_path != None:
             src = Image.open(image_path).convert('RGBA')
             text_overlay = Image.new("RGBA", src.size, (255, 255, 255, 0))
@@ -248,8 +274,8 @@ class Worker(QtCore.QThread):
             size_x_offset = int(5 * ratio * font_size_ratio)
             size_y_offset = int(8 * ratio * font_size_ratio)
             fnt = ImageFont.truetype(r'C:\Windows\Fonts\arial.TTF', fontSize)
-            color = self.form.watermark_color
-            print(color)
+            
+            # print(color)
 
             time_text = self.form.dateEdit.date().toPyDate().strftime("%Y/%m/%d")
             # image_draw.ink = 255 + 0 * 256 + 0 * 256 * 256
@@ -263,11 +289,17 @@ class Worker(QtCore.QThread):
                 time_y_offset = int(50 * ratio * font_size_ratio)
                 time_text_xy = (time_text_x, text_xy[1] - time_y_offset)
 
-                crop_area = (text_xy[0], time_text_xy[1],
-                             src.size[0], src.size[1])
-                self.form.colorLabel.setText(
-                    "水印区域背景颜色:" + self.BackgroundColorDetection(crop_area, src))
-
+                if self.form.isAutoColor:
+                    crop_area = (text_xy[0], time_text_xy[1],
+                                src.size[0], src.size[1])
+                    background_color = self.BackgroundColorDetection(crop_area, src)
+                    watermark_color = cfg.get("COLORS", background_color)
+                    color = self.form.colorDict[watermark_color]
+                    self.form.colorLabel.setText(
+                        "水印区域背景颜色:" + background_color)
+                else:
+                    color = self.form.watermark_color
+                
                 image_draw.text(text_xy, self.text_content, font=fnt, fill=(
                     color[0], color[1], color[2], self.form.transparentRate))
                 image_draw.text(time_text_xy, time_text, font=fnt, fill=(
@@ -279,11 +311,17 @@ class Worker(QtCore.QThread):
                 time_text_x = src.size[0] - (time_text_size[0] + size_x_offset)
                 time_text_xy = (
                     time_text_x, src.size[1] - (time_text_size[1] + size_y_offset))
-
-                crop_area = (
-                    time_text_xy[0], time_text_xy[1], src.size[0], src.size[1])
-                self.form.colorLabel.setText(
-                    "水印区域背景颜色:" + self.BackgroundColorDetection(crop_area, src))
+                
+                if self.form.isAutoColor:
+                    crop_area = (
+                        time_text_xy[0], time_text_xy[1], src.size[0], src.size[1])
+                    background_color = self.BackgroundColorDetection(crop_area, src)
+                    self.form.colorLabel.setText(
+                        "水印区域背景颜色:" + background_color)
+                    watermark_color = cfg.get("COLORS", background_color)
+                    color = self.form.colorDict[watermark_color]
+                else:
+                    color = self.form.watermark_color
 
                 image_draw.text(time_text_xy, time_text, font=fnt, fill=(
                     color[0], color[1], color[2], self.form.transparentRate))
